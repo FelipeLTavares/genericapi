@@ -1,14 +1,18 @@
-const express = require('express');
 require('express-async-errors');
+
+const express = require('express');
 const Authrouter = require('./src/application/routes/AuthRoutes.js');
-const VehicleService = require('./src/application/services/VehicleService.js');
 const VehicleRouter = require('./src/application/routes/VehicleRoutes.js');
+const authenticateRequest = require('./src/application/middlewares/authenticaterequest.js');
+const db = require('./src/database/models/index.js');
 
 require('dotenv').config();
 
 const app = express();
 
 app.use(express.json());
+
+app.use(authenticateRequest)
 
 app.use('/auth', Authrouter)
 app.use('/vehicle', VehicleRouter)
@@ -17,9 +21,8 @@ const errorHandler = (err, req, res, next) => {
   if (res.headersSent) {
     return next(err);
   }
-  console.log(err)
 
-  res.status(500).json({
+   res.status(500).json({
     success: false,
     message: err.message || 'Internal Server Error',
   });

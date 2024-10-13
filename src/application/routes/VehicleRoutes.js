@@ -15,7 +15,7 @@ VehicleRouter.get('/', async (req, res) => {
 })
 
 VehicleRouter.post('/', async (req, res) => {
-    const {vehicleData, files} = await formParser(req);
+    const {fields: vehicleData, files} = await formParser(req);
     const response = await vehicleService.create(vehicleData, files.image);
     return res.status(201).json({ response })
 })

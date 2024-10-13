@@ -26,15 +26,18 @@ class VehicleService {
     }
     
     async create(vehicleData, images = []) {
-        const vehicle = await this.vehicleRepository.create(vehicleData);
-        // upload images
+        const vehicle = await this.vehicleRepository.create(vehicleData, {
+            include: [db.Image]
+        });
         const uploadedImages = [];
+
         for(let img of images) {
             const uploadedImage = await ImageStoragerClient.upload(img)
-            const savedimage = await this.imageRepository.create({ url: uploadedImage.url, public_id: uploadedImage.publicId  })
+            const savedimage = await this.imageRepository.create({ url: uploadedImage.url, public_id: uploadedImage.publicId })
             uploadedImages.push(savedimage)
         }
-        await vehicle.addImages(uploadedImages)
+        await vehicle.addImages(uploadedImages);
+        vehicle.Images = uploadedImages;
 
         const vehicleDto = new VehicleDto(vehicle);
         return vehicleDto;

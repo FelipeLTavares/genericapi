@@ -41,7 +41,7 @@ exports.authenticate = async function ({ email, password }) {
         }
 
         const userDto = new UserDto(user);
-
+        console.log('token', JWT_SECRET)
         const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
             expiresIn: '1h'
         });

@@ -9,7 +9,6 @@ cloudinary.config({
 
 class ImageStoragerClient {
     static async upload(file) {
-        console.log('===')
         const uploadedImg = await cloudinary.uploader
             .upload(file.path, { upload_preset: process.env.UPLOAD_PRESET })
             .then((res) => ({ url: res.url, publicId: res.public_id }))

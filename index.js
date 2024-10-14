@@ -12,10 +12,15 @@ const app = express();
 
 app.use(express.json());
 
-app.use(authenticateRequest)
+// app.use(authenticateRequest)
 
-app.use('/auth', Authrouter)
-app.use('/vehicle', VehicleRouter)
+// app.use('/auth', Authrouter)
+// app.use('/vehicle', VehicleRouter)
+app.get('/', (req, res) => {
+  return res.status(200).json({
+    message: 'Hello world'
+  })
+})
 
 const errorHandler = (err, req, res, next) => {
   if (res.headersSent) {

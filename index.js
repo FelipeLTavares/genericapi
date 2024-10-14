@@ -3,7 +3,7 @@ require('express-async-errors');
 const express = require('express');
 const Authrouter = require('./src/application/routes/AuthRoutes.js');
 const VehicleRouter = require('./src/application/routes/VehicleRoutes.js');
-const authenticateRequest = require('./src/application/middlewares/authenticaterequest.js');
+const authenticateRequest = require('./src/application/middlewares/authenticateRequest.js');
 
 require('dotenv').config();
 

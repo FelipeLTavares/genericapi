@@ -3,8 +3,7 @@ require('express-async-errors');
 const express = require('express');
 const Authrouter = require('./src/application/routes/AuthRoutes.js');
 const VehicleRouter = require('./src/application/routes/VehicleRoutes.js');
-// const authenticateRequest = require('./src/application/middlewares/authenticaterequest.js');
-const db = require('./src/database/models/index.js');
+const authenticateRequest = require('./src/application/middlewares/authenticaterequest.js');
 
 require('dotenv').config();
 
@@ -12,10 +11,10 @@ const app = express();
 
 app.use(express.json());
 
-// app.use(authenticateRequest)
+app.use(authenticateRequest)
 
-// app.use('/auth', Authrouter)
-// app.use('/vehicle', VehicleRouter)
+app.use('/auth', Authrouter)
+app.use('/vehicle', VehicleRouter)
 app.get('/', (req, res) => {
   return res.status(200).json({
     message: 'Hello world'
